@@ -1,0 +1,28 @@
+.form1{
+background-color:#111111;
+width:300px;
+height:500px;
+padding:20px;
+margin:20px auto 0 auto;
+}
+table tr td{
+color:#ffffff;
+}
+h3,h5{
+color:#ffffff;
+}
+.form1 img{
+margin-left:100px;
+padding:5px;
+height:25px;
+}
+hr{
+width:65%;
+margin-left:90px;
+}
+input[type="submit"]{
+cursor:pointer;
+  background-color:#3869e6;
+  color:#fff;
+  margin-left:200px;
+}

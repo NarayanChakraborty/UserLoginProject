@@ -1,0 +1,60 @@
+.form1{
+width:340px;
+margin:20px auto 0 auto;
+background-color:#143f51;
+color:#fff;
+border:3px solid #fff;
+padding:20px;
+}
+input[type="submit"]{
+cursor:pointer;
+background-color:#143f51;
+color:#13a95a;
+margin-left:150px;
+height:22px;
+}
+#signin
+{
+width:240px;
+height:200px;
+margin:20px auto 0 auto;
+padding:10px;
+background-color:#143f51;
+border:1px solid #7291e1;
+color:#fff;
+}
+#signin input[type="submit"]{
+margin-left:80px;
+}
+.error{
+color:red;
+}
+.success{
+color:green;
+}
+.form1 input[type="text"],.form1 input[type="password"],
+.form1 input[type="file"],.form1 table tr td select{
+width:200px;
+height:22px;
+margin-left:10px;
+margin-bottom:3px;
+margin-top:2px;
+}
+.user
+{
+margin:100px auto 0 auto;
+padding:15px;
+border:2px solid #123454;
+width:300px;
+}
+.user li
+{
+list-style:none;
+background-color:#123454;
+padding:3px;
+}
+.user li a{
+color:#fff;
+font-size:20px;
+padding:5px;
+}
