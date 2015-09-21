@@ -7,9 +7,8 @@
  }
  else
   header('location:signin.php');
-  
-  $id=$_SESSION['name'];
   require_once('config.php');
+  $id=$_SESSION['name'];
   $result=mysql_query("select * from user_personal where user_id='$id'");
  while($row=mysql_fetch_assoc($result))
   {
@@ -20,6 +19,8 @@
 	$u_birthday=$row['birthday'];
 	$u_gendar=$row['gendar'];
 	$u_image=$row['image'];
+	//header("Content-type: image");
+	//echo $u_image;
   }
 ?>
 <!doctype html>
@@ -34,7 +35,9 @@
 	<tr>
 		
 		<td>
-        <img src=<?php echo $row['image']; ?>>
+        <?php 
+		echo "<img height='300' width=300px' src='data:image;base64,".$u_image."'>"
+		?>
 		</td>
 	</tr>
 	<tr>

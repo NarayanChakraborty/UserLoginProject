@@ -1,4 +1,8 @@
 <?php
+ini_set('mysql.connect_timeout',300);
+ini_set('default_socket_timeout',300);
+?>
+<?php
  require_once('config.php');
 if (isset($_POST['form1']))
 {
@@ -15,35 +19,52 @@ if (isset($_POST['form1']))
 	  
 	  $valid=1;
 	  $msg="";
-		$uploaded_file = $_FILES['image']['tmp_name'];
-		if(!isset($uploaded_file))
+	  
+	  
+	  /*
+	    $target_dir="uploads/";
+		$target_file=$target_dir.basename($_FILES['image']['name']);
+		$uploadOk=1;
+		$imageFileType=pathinfo($target_file,PATHINFO_EXTENSION);
+		$check=getimagesize($_FILES['image']['tmp_name']);
+		if($check!==false)
 		{
-		throw new Exception("select an image<br>");
-		}
-				$image=addslashes(file_get_contents($_FILES['image']['tmp_name']));
-				$pic_name=$_FILES['image']['name'];
-				$file_basename = substr($pic_name, 0, strripos($pic_name, '.')); // strip extention
-				$file_ext = substr($pic_name, strripos($pic_name, '.')); // strip name
-				$image_name = $file_basename.rand(1,100).$file_ext;
-				
-                $image_size=getimagesize($_FILES['image']['tmp_name']);
-				if($image_size==FALSE)
-				{
-				   throw new Exception("That's not an image");
-				}
-				$filesize = (filesize($_FILES['image']['tmp_name']) * .0009765625) * .0009765625; // bytes to MB 
-				if($filesize >1) {
-					throw new Exception('file size exceeds (1MB is maximum)');
-				}
-
-				
-				/*if(($file_ext!='.png')&&($file_ext!='.jpg')) {
-					throw new Exception('file must be png or jpg');
-				}*/
-			
-		//move_uploaded_file($_FILES['file1']['tmp_name'], 'upload/'.$f1);
-		
-   // try{
+		   echo "File is an image- ".$check['mime'].".";
+		   $uploadOk=1;
+		   }
+		   else{
+		   echo "File is not an image";
+		   $uploadOk=0;
+		 }
+		 //check if file already exists
+		 if(file_exists($target_file)){
+		 echo "Sorry,file already exists";
+		 $uploadOk=0;
+		 }
+		 //check file size
+		 if($_FILES['image']['size']>1000000){
+		 echo "Sorry,your file is too large";
+		 $uploadOk=0;
+		 }
+		 //Allow certain file formats
+		 if($imageFileType!="jpg"&&$imageFileType!="png"&&$imageFileType!="jpg"&&$imageFileType!="jpeg"&&$imageFileType!="gif")
+*/
+		if(getimagesize($_FILES['image']['tmp_name'])==FALSE)
+		 {
+		   throw new Exception("Please select an image");
+		 }
+		 if($_FILES['image']['size']>1000000){
+		 throw new Exception("Sorry,your file is too large");
+		 }
+		 $image_name=addslashes($_FILES['image']['name']);
+		 $imageFileType=pathinfo($image_name,PATHINFO_EXTENSION);
+		 
+		 if($imageFileType!="jpg"&&$imageFileType!="png"&&$imageFileType!="jpeg"&&$imageFileType!="gif")
+		 throw new Exception("File Type must be jpg/png/jpeg/gif");
+		 
+		 $image=addslashes($_FILES['image']['tmp_name']);
+		 $image=file_get_contents($image);
+		 $image=base64_encode($image);
 		if(empty($u_fname))
 		{
 		  $valid=0;
