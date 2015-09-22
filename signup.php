@@ -51,16 +51,16 @@ if (isset($_POST['form1']))
 */
 		if(getimagesize($_FILES['image']['tmp_name'])==FALSE)
 		 {
-		   throw new Exception("Please select an image");
+		   throw new Exception("<div class='error'>Please select an image</div>");
 		 }
 		 if($_FILES['image']['size']>1000000){
-		 throw new Exception("Sorry,your file is too large");
+		 throw new Exception("<div class='error'>Sorry,your file is too large</div>");
 		 }
 		 $image_name=addslashes($_FILES['image']['name']);
 		 $imageFileType=pathinfo($image_name,PATHINFO_EXTENSION);
 		 
 		 if($imageFileType!="jpg"&&$imageFileType!="png"&&$imageFileType!="jpeg"&&$imageFileType!="gif")
-		 throw new Exception("File Type must be jpg/png/jpeg/gif");
+		 throw new Exception("<div class='error'>File Type must be jpg/png/jpeg/gif</div>");
 		 
 		 $image=addslashes($_FILES['image']['tmp_name']);
 		 $image=file_get_contents($image);
@@ -121,6 +121,12 @@ if (isset($_POST['form1']))
 		   //throw new Exception("gender can not be empty");
 		   //echo "<div class='error'>gender can not be empty</div><br>";
 		}
+		if(!(preg_match("/^[a-z0-9_-]{6,40}$/i", $u_password)))
+		{
+		 /* $valid=0;
+		  $msg.="Your Passord length must be atleast of 6 characters<br>";*/
+		  throw new Exception("<div class='error'>Your Passord length must be atleast of 6 characters<br></div>");
+		}
 		if(!(preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/", $u_email)))
 		{
 		  $valid=0;
@@ -139,7 +145,10 @@ if (isset($_POST['form1']))
 		  $msg.="Please Enter a valid Last Name(length between 3 and 22)<br>";
 		 // echo "<div class='error'>Please Enter a valid Last Name(length between 3 and 22)</div><br>";
 		}
-	
+	    if(!isset($_POST['agree']))
+		{
+		  throw new Exception("<div class='error'>You Must Agree with the term and policies</div>");
+		}
 	
 		if($valid!=1)
 		{
@@ -155,10 +164,11 @@ if (isset($_POST['form1']))
 		  '$_POST[lname]','$_POST[email]','$password','$_POST[country]','$_POST[birthday]','$_POST[gendar]','$image_name','$image')");
 		  $success_msg="<div class='success'>Data has been successfully inserted</div><br>";
 		}
+		
 	}
 	catch(Exception $e)
 	{
-	  $error_msg=$e->getMessage();   
+      $error_msg=$e->getMessage();   
 	}
 }
 ?>

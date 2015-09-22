@@ -27,7 +27,7 @@ color:#fff;
 margin-left:80px;
 }
 .error{
-color:red;
+color:#df4135;
 }
 .success{
 color:green;
@@ -56,5 +56,55 @@ padding:3px;
 .user li a{
 color:#fff;
 font-size:20px;
+padding:5px;
+}
+.body{
+width:600px;
+margin:20px auto 0 auto;
+background-color:#89b7e6;
+padding:10px;
+}
+.header{
+height:100px;
+color:#fff;
+background-color:#122a43;
+}
+.header h1{
+margin-top:10px;
+padding:5px;
+}
+.content{
+height:500px;
+width:600px;
+}
+.cleft{
+width:350px;
+float:left;
+margin-left:10px;
+}
+.cleft table
+{
+ margin-top:50px;
+ margin-left:20px;
+ }
+ .cleft table tr td{
+ font-size:18px;
+ }
+.cright{
+margin-top:100px;
+width:230px;
+float:left;
+}
+.cright img,a{
+margin-left:40px;
+}
+.footer{
+height:50px;
+color:#fff;
+background-color:#122a43;
+}
+.footer h5{
+float:right;
+margin-top:20px;
 padding:5px;
 }

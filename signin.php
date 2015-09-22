@@ -46,7 +46,7 @@ if(isset($_POST["form2"]))
 	 <title>login-simple Blog with PHP</title>
 	 <link rel="stylesheet" href="project.css">
 </head>
-<body>
+<body >
 <div id="signin">
         <h1>User Login</h1>
       <form action="" method="post">

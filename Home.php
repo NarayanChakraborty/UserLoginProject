@@ -3,7 +3,7 @@
  session_start();
  if(isset($_SESSION['name'])&&!empty($_SESSION['name']))
  {
- echo "Your are logged in";
+
  }
  else
   header('location:signin.php');
@@ -28,39 +28,47 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
+	 <link rel="stylesheet" href="project.css">
 </head>
-<body>
-<h1>Hey Welcome To Your Home Page</h1>
-<table>
-	<tr>
-		
-		<td>
-        <?php 
-		echo "<img height='300' width=300px' src='data:image;base64,".$u_image."'>"
-		?>
-		</td>
-	</tr>
-	<tr>
-		<td>Name:</td>
-		<td><?php echo $u_fname." ".$u_lname?></td>
-	</tr>
-	<tr>
-		<td>Email:</td>
-		<td><?php echo $u_email?></td>
-	</tr>
-	<tr>
-		<td>Country:</td>
-		<td><?php echo $u_country?></td>
-	</tr>
-	<tr>
-		<td>Birthday:</td>
-		<td><?php echo $u_birthday?></td>
-	</tr>
-	<tr>
-		<td>Gendar:</td>
-		<td><?php echo $u_gendar?></td>
-	</tr>
-</table>
-<a href="signout.php">LOG OUT</a>
+<div class="body">
+<body >
+<div class="header"><h1>WEBSITE</div>
+<div class="content">
+
+	<div class="cleft">
+		<h1>Hey Welcome To Your Home Page</h1>
+		<table>
+			<tr>
+				<td>Name:</td>
+				<td><?php echo $u_fname." ".$u_lname?></td>
+			</tr>
+			<tr>
+				<td>Email:</td>
+				<td><?php echo $u_email?></td>
+			</tr>
+			<tr>
+				<td>Country:</td>
+				<td><?php echo $u_country?></td>
+			</tr>
+			<tr>
+				<td>Birthday:</td>
+				<td><?php echo $u_birthday?></td>
+			</tr>
+			<tr>
+				<td>Gendar:</td>
+				<td><?php echo $u_gendar?></td>
+			</tr>
+		</table>
+		</div>
+		<div class="cright">
+				<?php 
+				echo "<img height='170' width=150px' src='data:image;base64,".$u_image."'>";
+				echo "<br><br>";
+				?>
+		<a href="signout.php">LOG OUT</a>
+		</div>
+</div>
+<div class="footer"><h5>All Rights Reserved By ©Sree Narayan Chakraborty</h5></diV>
 </body>
+</div>
 </html>
