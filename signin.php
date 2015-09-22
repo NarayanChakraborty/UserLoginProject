@@ -15,13 +15,15 @@ if(isset($_POST["form2"]))
 		    }
 			$password=md5($_POST['password']);
 			$num=0;
-			$result=mysql_query("Select user_id from user_personal where user_email='$_POST[email]' and user_password='$password'");
-			
-			$num=mysql_num_rows($result);
+			$result=$db->prepare("Select user_id from user_personal where user_email=? and user_password=?");
+			$result->execute(array($_POST['email'],$password));
+			$num=$result->rowCount();
             if($num>0)
             {
                 session_start();
-				$value=mysql_result($result,0,'user_id');
+				//$value=mysql_result($result,0,'user_id');
+				$tmp=$result->fetch(PDO::FETCH_ASSOC);
+				$value=$tmp['user_id'];
 				$_SESSION['name']=$value;
 				header('location: Home.php');
              }

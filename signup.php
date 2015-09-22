@@ -1,8 +1,4 @@
 <?php
-ini_set('mysql.connect_timeout',300);
-ini_set('default_socket_timeout',300);
-?>
-<?php
  require_once('config.php');
 if (isset($_POST['form1']))
 {
@@ -20,35 +16,6 @@ if (isset($_POST['form1']))
 	  $valid=1;
 	  $msg="";
 	  
-	  
-	  /*
-	    $target_dir="uploads/";
-		$target_file=$target_dir.basename($_FILES['image']['name']);
-		$uploadOk=1;
-		$imageFileType=pathinfo($target_file,PATHINFO_EXTENSION);
-		$check=getimagesize($_FILES['image']['tmp_name']);
-		if($check!==false)
-		{
-		   echo "File is an image- ".$check['mime'].".";
-		   $uploadOk=1;
-		   }
-		   else{
-		   echo "File is not an image";
-		   $uploadOk=0;
-		 }
-		 //check if file already exists
-		 if(file_exists($target_file)){
-		 echo "Sorry,file already exists";
-		 $uploadOk=0;
-		 }
-		 //check file size
-		 if($_FILES['image']['size']>1000000){
-		 echo "Sorry,your file is too large";
-		 $uploadOk=0;
-		 }
-		 //Allow certain file formats
-		 if($imageFileType!="jpg"&&$imageFileType!="png"&&$imageFileType!="jpg"&&$imageFileType!="jpeg"&&$imageFileType!="gif")
-*/
 		if(getimagesize($_FILES['image']['tmp_name'])==FALSE)
 		 {
 		   throw new Exception("<div class='error'>Please select an image</div>");
@@ -87,7 +54,7 @@ if (isset($_POST['form1']))
 		   //echo "<div class='error'>Email name can not be empty</div><br>";
 		}
 		if(empty($u_password))
-		{
+		{ 
 		   $valid=0;
 		   $msg.="Password name can not be empty<br>";
 		   //throw new Exception("Password name can not be empty");
@@ -123,27 +90,19 @@ if (isset($_POST['form1']))
 		}
 		if(!(preg_match("/^[a-z0-9_-]{6,40}$/i", $u_password)))
 		{
-		 /* $valid=0;
-		  $msg.="Your Passord length must be atleast of 6 characters<br>";*/
 		  throw new Exception("<div class='error'>Your Passord length must be atleast of 6 characters<br></div>");
 		}
 		if(!(preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/", $u_email)))
 		{
-		  $valid=0;
-		  $msg.="Please Enter a valid Email Address<br>";
-		  //echo "<div class='error'>Please Enter a valid Email Address</div><br>";
+		  throw new Exception("<div class='error'>Please Enter a valid Email Address</div><br>");
 		}
 		if(!(preg_match("/^[A-Za-z][A-Za-z]{2,21}$/",$u_fname)))
 		{ 
-		  $valid=0;
-		  $msg.="Please Enter a valid First Name(length between 3 and 22)<br>";
-		  //echo "<div class='error'>Please Enter a valid First Name(length between 3 and 22)</div><br>";
+		  throw new Exception("<div class='error'>Please Enter a valid First Name(length between 3 and 22)</div><br>") ;
 		}
 			if(!(preg_match("/^[A-Za-z][A-Za-z]{2,21}$/",$u_lname)))
 		{ 
-		  $valid=0;
-		  $msg.="Please Enter a valid Last Name(length between 3 and 22)<br>";
-		 // echo "<div class='error'>Please Enter a valid Last Name(length between 3 and 22)</div><br>";
+		 throw new Exception("<div class='error'>Please Enter a valid Last Name(length between 3 and 22)</div><br>")   ;
 		}
 	    if(!isset($_POST['agree']))
 		{
@@ -160,8 +119,11 @@ if (isset($_POST['form1']))
 					 throw new Exception("<div class='error'>Password doesnot match</div><br>");
 			}
 		  $password=md5($_POST['password']);
-		  $result1=mysql_query("insert into user_personal(first_name,last_name,user_email,user_password,country,birthday,gendar,image_name,image) values('$_POST[fname]',
-		  '$_POST[lname]','$_POST[email]','$password','$_POST[country]','$_POST[birthday]','$_POST[gendar]','$image_name','$image')");
+		 // $result1=mysql_query("insert into user_personal(first_name,last_name,user_email,user_password,country,birthday,gendar,image_name,image) values('$_POST[fname]',
+		  //'$_POST[lname]','$_POST[email]','$password','$_POST[country]','$_POST[birthday]','$_POST[gendar]','$image_name','$image')");
+		  $result=$db->prepare("insert into user_personal(first_name,last_name,user_email,user_password,country,birthday,gendar,image_name,image)
+		  values(?,?,?,?,?,?,?,?,?)");
+		  $result->execute(array($_POST['fname'],$_POST['lname'],$_POST['email'],$password,$_POST['country'],$_POST['birthday'],$_POST['gendar'],$image_name,$image));
 		  $success_msg="<div class='success'>Data has been successfully inserted</div><br>";
 		}
 		

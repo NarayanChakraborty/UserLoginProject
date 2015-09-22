@@ -9,9 +9,13 @@
   header('location:signin.php');
   require_once('config.php');
   $id=$_SESSION['name'];
-  $result=mysql_query("select * from user_personal where user_id='$id'");
- while($row=mysql_fetch_assoc($result))
-  {
+ 
+ //$result=mysql_query("select * from user_personal where user_id='$id'");
+ $result=$db->prepare("select * from user_personal where user_id=?");
+ $result->execute(array($id));   
+ $value=$result->fetchAll(PDO::FETCH_ASSOC); 
+foreach($value as $row)
+{
     $u_fname=$row['first_name'];
 	$u_lname=$row['last_name'];
 	$u_email=$row['user_email'];
